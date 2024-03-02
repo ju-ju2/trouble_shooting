@@ -16,38 +16,39 @@ interface DefaultLayoutProps {
 const cx = classNames.bind(styles);
 const { Header, Content, Sider } = Layout;
 
-const items1: MenuProps["items"] = ["1", "2", "3"].map((key) => ({
+const headerMenu: MenuProps["items"] = ["트러블슈팅"].map((key) => ({
   key,
-  label: `nav ${key}`,
+  label: key,
 }));
 
-const items2: MenuProps["items"] = [
-  UserOutlined,
-  LaptopOutlined,
-  NotificationOutlined,
-].map((icon, index) => {
-  const key = String(index + 1);
-
-  return {
-    key: `sub${key}`,
-    icon: React.createElement(icon),
-    label: `subnav ${key}`,
-
-    children: new Array(4).fill(null).map((_, j) => {
-      const subKey = index * 4 + j + 1;
-      return {
-        key: subKey,
-        label: `option${subKey}`,
-      };
-    }),
-  };
-});
+const sideMenu: MenuProps["items"] = [
+  {
+    key: "table",
+    label: "테이블",
+    children: [
+      {
+        key: "checkbox_click",
+        label: "체크박스 클릭",
+      },
+      {
+        key: "pagination",
+        label: "페이지네이션 ",
+      },
+    ],
+  },
+  {
+    key: "router",
+    label: "라우터",
+    children: [
+      {
+        key: "router setting",
+        label: "라우터 세팅",
+      },
+    ],
+  },
+];
 
 const DefaultLayout: FC<DefaultLayoutProps> = (props) => {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
   const { children } = props;
 
   return (
@@ -59,18 +60,18 @@ const DefaultLayout: FC<DefaultLayoutProps> = (props) => {
             theme="dark"
             mode="horizontal"
             defaultSelectedKeys={["2"]}
-            items={items1}
+            items={headerMenu}
             style={{ flex: 1, minWidth: 0 }}
           />
         </Header>
         <Layout>
-          <Sider width={200} style={{ background: colorBgContainer }}>
+          <Sider width={200} style={{ background: "white" }}>
             <Menu
               mode="inline"
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0 }}
-              items={items2}
+              items={sideMenu}
             />
           </Sider>
           <Layout style={{ padding: "0 24px 24px" }}>
@@ -83,8 +84,8 @@ const DefaultLayout: FC<DefaultLayoutProps> = (props) => {
               style={{
                 padding: 24,
                 margin: 0,
-                background: colorBgContainer,
-                borderRadius: borderRadiusLG,
+                background: "white",
+                borderRadius: 8,
               }}
             >
               {children}
