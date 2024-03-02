@@ -46,6 +46,16 @@
     ]
   },
   "devDependencies": {
-    "@faker-js/faker": "^8.4.1"
+    "@faker-js/faker": "^8.4.1",
+    "sass": "^1.56.2",
+    "eslint": "^8.17.0",
+    "prettier": "^2.6.2",
+    "lint-staged": "^12.5.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,ts,tsx,jsx}": [
+      "eslint '**/*.{ts,tsx}' --fix",
+      "prettier '**/*.{ts,tsx}' --write"
+    ]
   }
 }
