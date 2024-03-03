@@ -13,7 +13,7 @@ const Error = (props: ErrorProps): React.ReactElement => {
       <div className={cx("container")}>
         존재하지 않는 페이지입니다.
         <br />
-        <Link to="">메인 페이지로 이동</Link>
+        <Link to="/trouble_shooting/table/checkbox">메인 페이지로 이동</Link>
       </div>
     </div>
   );

@@ -7,7 +7,6 @@ export interface Path {
   component?: LazyExoticComponent<FC>;
   authority?: string; // 메뉴 접근권한
   showMenu?: string; // 메뉴 표시여부, 3depth 부터 미사용
-  // noAuthication?: boolean; // 인증없이 접근 가능한 페이지 여부
   noLayout?: boolean; // 헤더/사이드바 표시 여부
   noSidemenu?: boolean; // 사이드바 표시 여부
   children?: Path[]; // 서브 메뉴
@@ -15,23 +14,37 @@ export interface Path {
 
 export const enum PATH_LABEL {
   ERROR = "에러",
+  TROUBLE_SHOOTING = "트러블 슈팅",
   TABLE = "테이블",
+  TABLE_CHECKBOX = "체크박스 클릭",
+  TABLE_PAGINATION = "체크박스 클릭",
 }
 
 export const paths: Path[] = [
   {
-    label: PATH_LABEL.TABLE,
-    key: "/table",
-    component: lazy(() => import("../pages/table/CheckColumn")),
+    label: PATH_LABEL.TROUBLE_SHOOTING,
+    key: "/trouble_shooting",
     showMenu: "true",
-    noSidemenu: true,
+    children: [
+      {
+        label: PATH_LABEL.TABLE_CHECKBOX,
+        key: "/trouble_shooting/table/checkbox",
+        component: lazy(() => import("../pages/table/CheckColumn")),
+        showMenu: "true",
+      },
+      {
+        label: PATH_LABEL.TABLE_PAGINATION,
+        key: "/trouble_shooting/table/pagination",
+        component: lazy(() => import("../pages/table/Pagination")),
+        showMenu: "true",
+      },
+    ],
   },
   {
     label: PATH_LABEL.ERROR,
     key: "/*",
     component: lazy(() => import("../pages/error")),
     noLayout: true,
-    // noAuthication: true,
   },
 ];
 
