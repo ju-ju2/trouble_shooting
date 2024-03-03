@@ -17,6 +17,7 @@ export const enum PATH_LABEL {
   TROUBLE_SHOOTING = "트러블 슈팅",
   TABLE = "테이블",
   TABLE_CHECKBOX = "체크박스 클릭",
+  TABLE_CHECKBOX_DETAIL = "체크박스 상세",
   TABLE_PAGINATION = "체크박스 클릭",
 }
 
@@ -29,8 +30,17 @@ export const paths: Path[] = [
       {
         label: PATH_LABEL.TABLE_CHECKBOX,
         key: "/trouble_shooting/table/checkbox",
-        component: lazy(() => import("../pages/table/CheckColumn")),
+        component: lazy(
+          () => import("../pages/table/check-column/CheckColumn")
+        ),
         showMenu: "true",
+        children: [
+          {
+            label: PATH_LABEL.TABLE_CHECKBOX_DETAIL,
+            key: "/trouble_shooting/table/checkbox/detail",
+            component: lazy(() => import("../pages/table/check-column/Detail")),
+          },
+        ],
       },
       {
         label: PATH_LABEL.TABLE_PAGINATION,
