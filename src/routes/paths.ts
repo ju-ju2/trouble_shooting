@@ -18,7 +18,7 @@ export const enum PATH_LABEL {
   TABLE = "테이블",
   TABLE_CHECKBOX = "체크박스 클릭",
   TABLE_CHECKBOX_DETAIL = "체크박스 상세",
-  TABLE_PAGINATION = "체크박스 클릭",
+  TABLE_PAGINATION = "페이지네이션",
 }
 
 export const paths: Path[] = [
@@ -45,7 +45,7 @@ export const paths: Path[] = [
       {
         label: PATH_LABEL.TABLE_PAGINATION,
         key: "/trouble_shooting/table/pagination",
-        component: lazy(() => import("../pages/table/Pagination")),
+        component: lazy(() => import("../pages/table/pagination")),
         showMenu: "true",
       },
     ],

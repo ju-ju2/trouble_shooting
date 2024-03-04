@@ -87,12 +87,11 @@ const CheckColumn: FC<CheckColumnProps> = (props) => {
             // 체크박스 열 클릭 시 이벤트 막음
             onClick: (e) => {
               const target = e.target as HTMLElement;
-              console.log(target);
-              // if (target.classList.contains("ant-table-selection-column")) {
-              //   return;
-              // } else {
-              //   navigate("/trouble_shooting/table/checkbox/detail");
-              // }
+              if (target.classList.contains("ant-table-selection-column")) {
+                return;
+              } else {
+                navigate("/trouble_shooting/table/checkbox/detail");
+              }
             },
           };
         }}
