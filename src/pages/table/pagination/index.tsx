@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { FC, useState } from "react";
+import { FC, Key, useEffect, useState } from "react";
 import type { TableColumnsType } from "antd";
 import { faker } from "@faker-js/faker";
 
@@ -28,6 +28,8 @@ const Pagination: FC<PaginationProps> = (props) => {
   ];
 
   const [page, setPage] = useState<number>(1);
+  const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
+  const [selectedMembers, setSelectedMembers] = useState<Key[]>([]);
 
   const getTableData = (page: number, index: number): DataType => {
     faker.seed(index + 1 + (page - 1) * 5); // 페이지에 따른 테이블 인덱스 번호
@@ -43,25 +45,44 @@ const Pagination: FC<PaginationProps> = (props) => {
     getTableData(page, index)
   );
 
-  // rowSelection object indicates the need for row selection
-  const rowSelection = {
-    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-    },
-    getCheckboxProps: (record: DataType) => ({
-      name: record.name,
-    }),
-  };
+  // 체크 동기화
+  useEffect(() => {
+    setSelectedRowKeys(selectedMembers.map((item) => item));
+    console.log(selectedMembers);
+  }, [selectedMembers]);
 
   return (
     <div>
       <Table
         rowSelection={{
-          ...rowSelection,
+          selectedRowKeys,
+          onSelect: (record) => {
+            // 이미 존재하는 키인지 아닌지 구분
+            if (selectedMembers.includes(record.key)) {
+              setSelectedMembers(
+                selectedMembers.filter((key) => key !== record.key)
+              );
+            } else {
+              setSelectedMembers((prev) => [...prev, record.key]);
+            }
+          },
+          onSelectAll: (isSelected, _selectedRows, changeRows) => {
+            // isSelected 전체 선택 모드 boolean
+            // changeRows : 이미 선택된 체크 항목 이외의 체크 로우들 정보
+            if (isSelected) {
+              setSelectedMembers((prev) => [
+                ...prev,
+                ...changeRows.map((item) => item.key),
+              ]);
+            } else {
+              setSelectedMembers(
+                selectedMembers.filter(
+                  (member) =>
+                    !changeRows.map((item) => item.key).includes(member)
+                )
+              );
+            }
+          },
         }}
         columns={columns}
         dataSource={tableData}
