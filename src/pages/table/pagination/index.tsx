@@ -29,7 +29,6 @@ const Pagination: FC<PaginationProps> = (props) => {
 
   const [page, setPage] = useState<number>(1);
   const [selectedRowKeys, setSelectedRowKeys] = useState<Key[]>([]);
-  const [selectedMembers, setSelectedMembers] = useState<Key[]>([]);
 
   const getTableData = (page: number, index: number): DataType => {
     faker.seed(index + 1 + (page - 1) * 5); // 페이지에 따른 테이블 인덱스 번호
@@ -45,12 +44,6 @@ const Pagination: FC<PaginationProps> = (props) => {
     getTableData(page, index)
   );
 
-  // 체크 동기화
-  useEffect(() => {
-    setSelectedRowKeys(selectedMembers.map((item) => item));
-    console.log(selectedMembers);
-  }, [selectedMembers]);
-
   return (
     <div>
       <Table
@@ -58,27 +51,26 @@ const Pagination: FC<PaginationProps> = (props) => {
           selectedRowKeys,
           onSelect: (record) => {
             // 이미 존재하는 키인지 아닌지 구분
-            if (selectedMembers.includes(record.key)) {
-              setSelectedMembers(
-                selectedMembers.filter((key) => key !== record.key)
+            if (selectedRowKeys.includes(record.key)) {
+              setSelectedRowKeys(
+                selectedRowKeys.filter((key) => key !== record.key)
               );
             } else {
-              setSelectedMembers((prev) => [...prev, record.key]);
+              setSelectedRowKeys((prev) => [...prev, record.key]);
             }
           },
           onSelectAll: (isSelected, _selectedRows, changeRows) => {
             // isSelected 전체 선택 모드 boolean
             // changeRows : 이미 선택된 체크 항목 이외의 체크 로우들 정보
             if (isSelected) {
-              setSelectedMembers((prev) => [
+              setSelectedRowKeys((prev) => [
                 ...prev,
                 ...changeRows.map((item) => item.key),
               ]);
             } else {
-              setSelectedMembers(
-                selectedMembers.filter(
-                  (member) =>
-                    !changeRows.map((item) => item.key).includes(member)
+              setSelectedRowKeys(
+                selectedRowKeys.filter(
+                  (key) => !changeRows.map((item) => item.key).includes(key)
                 )
               );
             }
