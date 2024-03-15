@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
-    "@ckeditor/ckeditor5-build-classic": "^41.2.0",
     "@ckeditor/ckeditor5-react": "^6.2.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -14,6 +13,7 @@
     "@types/react": "^18.2.61",
     "@types/react-dom": "^18.2.19",
     "antd": "^5.8.0",
+    "ckeditor5-custom-build": "file:src/libs/ckeditor5-custom-build-0.0.1.tgz",
     "dayjs": "^1.11.9",
     "query-string": "^7.1.1",
     "react": "^18.2.0",
