@@ -19,6 +19,8 @@ export const enum PATH_LABEL {
   TABLE_CHECKBOX = "체크박스 클릭",
   TABLE_CHECKBOX_DETAIL = "체크박스 상세",
   TABLE_PAGINATION = "페이지네이션",
+  LIBRARY = "라이브러리",
+  LIBRARY_CKEDITOR = "Ckeditor5",
 }
 
 export const paths: Path[] = [
@@ -46,6 +48,12 @@ export const paths: Path[] = [
         label: PATH_LABEL.TABLE_PAGINATION,
         key: "/trouble_shooting/table/pagination",
         component: lazy(() => import("../pages/table/pagination")),
+        showMenu: "true",
+      },
+      {
+        label: PATH_LABEL.LIBRARY_CKEDITOR,
+        key: "/trouble_shooting/library/ckeditor",
+        component: lazy(() => import("../pages/library/ck-editor5/Editor")),
         showMenu: "true",
       },
     ],
