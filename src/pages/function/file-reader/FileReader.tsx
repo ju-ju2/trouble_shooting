@@ -1,5 +1,8 @@
-import { Button, Modal, Space, Upload, UploadProps } from "antd";
+import { Button, Flex, Input, Modal, Space, Upload, UploadProps } from "antd";
 import { useState } from "react";
+import AceEditor, { IAceEditorProps } from "react-ace";
+import "ace-builds/src-noconflict/mode-yaml";
+import "ace-builds/src-noconflict/theme-textmate";
 
 const FileReader = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -33,9 +36,16 @@ const FileReader = () => {
         onOk={onClickOnOk}
         onCancel={() => setIsOpen(false)}
       >
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
+        <Flex vertical gap={"8px"}>
+          <Input placeholder="File Name" />
+          <AceEditor
+            mode="yaml"
+            theme="textmate"
+            width="100%"
+            height="400px"
+            setOptions={{ useWorker: false }}
+          />
+        </Flex>
       </Modal>
     </>
   );
