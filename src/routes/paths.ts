@@ -23,6 +23,9 @@ export const enum PATH_LABEL {
   LIBRARY_CKEDITOR = "Ckeditor5",
   FUNCTION = "기타 기능",
   FUNCTION_FILE_READER = "File Reader",
+  CONTEXT = "전역관리",
+  CONTEXT_NOTIFICATION = "notification",
+  CONTEXT_NOTIFICATION_DETAIL = "notification 상세",
 }
 
 export const paths: Path[] = [
@@ -65,6 +68,21 @@ export const paths: Path[] = [
           () => import("../pages/function/file-reader/FileReader")
         ),
         showMenu: "true",
+      },
+      {
+        label: PATH_LABEL.CONTEXT_NOTIFICATION,
+        key: "/trouble_shooting/function/context/notification",
+        component: lazy(() => import("../pages/context/Notification")),
+        showMenu: "true",
+        children: [
+          {
+            label: PATH_LABEL.CONTEXT_NOTIFICATION_DETAIL,
+            key: "/trouble_shooting/function/context/notification/detail",
+            component: lazy(
+              () => import("../pages/context/NotificationDetail")
+            ),
+          },
+        ],
       },
     ],
   },
