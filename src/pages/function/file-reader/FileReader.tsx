@@ -1,11 +1,14 @@
 import { Button, Flex, Input, Modal, Space, Upload, UploadProps } from "antd";
 import { useState } from "react";
-import AceEditor, { IAceEditorProps } from "react-ace";
+import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-yaml";
 import "ace-builds/src-noconflict/theme-textmate";
 
 const FileReader = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [fileName, setFileName] = useState<string>("");
+  const [yamlValue, setYamlValue] = useState<string>("");
+
   const uploadProps: UploadProps = {
     name: "file",
     multiple: false,
@@ -13,11 +16,7 @@ const FileReader = () => {
     beforeUpload: () => false,
   };
 
-  const onClickOpenEditor = () => {
-    setIsOpen(true);
-  };
-
-  const onClickOnOk = () => {
+  const onClickModalOk = () => {
     setIsOpen(false);
     // 추가 기능
   };
@@ -28,17 +27,23 @@ const FileReader = () => {
         <Upload {...uploadProps}>
           <Button>File Upload</Button>
         </Upload>
-        <Button onClick={onClickOpenEditor}>open editor</Button>
+        <Button onClick={() => setIsOpen(true)}>open editor</Button>
       </Space>
       <Modal
         title="Editor"
         open={isOpen}
-        onOk={onClickOnOk}
+        onOk={onClickModalOk}
         onCancel={() => setIsOpen(false)}
       >
         <Flex vertical gap={"8px"}>
-          <Input placeholder="File Name" />
+          <Input
+            placeholder="File Name"
+            value={fileName}
+            onChange={(e) => setFileName(e.target.value)}
+          />
           <AceEditor
+            value={yamlValue}
+            onChange={(e) => setYamlValue(e)}
             mode="yaml"
             theme="textmate"
             width="100%"
