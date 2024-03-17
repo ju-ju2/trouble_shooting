@@ -58,12 +58,22 @@ export const useFileReaderController = (props: FileProps = {}): Controller => {
 
   const onClickModalOk = () => {
     setIsOpen(false);
-    // 추가 기능
+    const handleConvertFile = (): File => {
+      // Blob 객체로 변환
+      const blob = new Blob([yamlValue], { type: "application/x-yaml" });
+
+      // File 객체로 다시 변환
+      const file = new File([blob], fileName, {
+        type: "application/x-yaml",
+      });
+
+      return file;
+    };
+    handleConvertFile();
   };
 
   const handleEditorOpenState = (state: boolean) => {
     setIsOpen(state);
-    // 추가 기능
   };
 
   const handleFileName = (name: string) => setFileName(name);
