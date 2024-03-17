@@ -3,7 +3,7 @@ import { IconType, NotificationInstance } from "antd/es/notification/interface";
 import React, { createContext } from "react";
 
 interface NotificationType {
-  //   type?: IconType | "loading";
+  type?: IconType | "loading";
   message: string;
   description?: string;
   key?: React.Key;
@@ -26,12 +26,12 @@ const GlobalContextContainer = ({
   const [notificationApi, contextHolder] = AntdNotification.useNotification();
 
   const notification = ({
-    // type = "success",
+    type = "success",
     message,
     description,
     key,
   }: NotificationType) => {
-    notificationApi.open({
+    notificationApi[type]({
       message,
       description,
       key,
