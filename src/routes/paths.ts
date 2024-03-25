@@ -21,6 +21,7 @@ export const enum PATH_LABEL {
   TABLE_PAGINATION = "페이지네이션",
   LIBRARY = "라이브러리",
   LIBRARY_CKEDITOR = "Ckeditor5",
+  LIBRARY_ECHART = "Echart",
   FUNCTION = "기타 기능",
   FUNCTION_FILE_READER = "File Reader",
   CONTEXT = "전역관리",
@@ -59,6 +60,15 @@ export const paths: Path[] = [
         label: PATH_LABEL.LIBRARY_CKEDITOR,
         key: "/trouble_shooting/library/ckeditor",
         component: lazy(() => import("../pages/library/ck-editor5/Editor")),
+        showMenu: "true",
+      },
+      {
+        label: PATH_LABEL.LIBRARY_ECHART,
+        key: "/trouble_shooting/library/echart",
+        // component: lazy(() => import("../pages/library/echart/EchartPage")),
+        component: lazy(
+          () => import("../pages/library/echart/EchartTreeShaking")
+        ),
         showMenu: "true",
       },
       {
